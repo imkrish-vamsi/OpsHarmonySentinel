@@ -69,3 +69,33 @@ The root cause could be an outdated MySQL version running on a Solaris system wh
 "The incident root cause could stem from a failed deployment on the Linux server that hosts the shopping-cart-app, where the new code contained a critical bug that caused a service to enter an infinite loop, consuming all available CPU resources."
 "An identified root cause is the misconfiguration of the firewall rules after a recent update, which has inadvertently blocked traffic to critical services, resulting in timeouts and service unavailability."
 "The root cause could be due to the Linux server running out of inodes, which has prevented new files from being created on the server, thereby causing failures in services that require writing logs or temporary files for normal operation."
+"The root cause appears to be a memory leak in the Java application running on the Springboot Micro-service, indicated by a steadily increasing heap memory consumption leading to Garbage Collection overhead and high response times."
+"An improper configuration of the MySQL database max_connections parameter on the mysql-percona-153 instance may be causing too many concurrent connections, leading to high CPU utilization and slow query response times."
+"The root cause is likely due to insufficient disk IOPS for the shopping-cart-app's database on the RHEL_8 operating system, which has led to increased disk queue lengths and high latency in data retrieval."
+"Network congestion or misconfigured network settings on the RHEL_8 operating system might be causing packet loss or high network latency, directly impacting the response times of services running on the Solaris server."
+"A recent update to the Redis cache instance could have introduced a bug causing excessive memory usage, which in turn is affecting the performance of dependent applications by increasing load and response times."
+"The root cause seems to be related to a faulty deployment of a new version of the weblogic application server which is causing thread deadlocks under high load, resulting in increased response times for user requests."
+"High CPU utilization and application slowdowns may be the result of an OpenSearch service on linux experiencing a surge in indexing operations, possibly due to a sudden increase in logging events or data ingestion rates."
+"The root cause could be attributed to the Linux server running out of file descriptors because of too many open connections, leading to failures in the application layer and increased error rates."
+"It seems that the Percona server instance is running an extensive backup process during peak hours, which is consuming a significant amount of I/O and CPU resources, causing performance degradation for the shopping-cart-app."
+"A misconfigured auto-scaling policy on the RHEL_8 cloud environment might be causing insufficient resource allocation for the shopping-cart-app's microservices during traffic spikes, leading to high response times and timeouts."
+"High memory consumption on the OpenSearch instance due to inefficient query executions, leading to slower search operations and increased latency."
+File descriptor leaks in the WebLogic server causing out-of-memory errors and service disruptions for the hosted applications.
+Network congestion on the Redis cache cluster resulting in delayed write/read operations and increased application response times.
+"Disk I/O bottleneck on the MySQL database server due to simultaneous heavy read/write operations, causing slow query responses and transaction timeouts."
+Incorrectly configured kernel parameters on a Linux server leading to suboptimal performance and frequent application crashes.
+"Solaris server's ZFS file system hitting I/O throttling limits, causing slowdowns in file-intensive operations for the dependent services."
+"Percona XtraDB cluster experiencing replication lag due to network latency, leading to inconsistent database states across nodes."
+"Insufficient CPU allocation for a Kubernetes pod running a Java-based microservice, leading to thread contention and slow request processing."
+Corrupted indexes in the MongoDB database leading to failed queries and application errors during data retrieval operations.
+"Overutilization of CPU resources by a rogue process on an RHEL server, causing other critical services to starve and degrade in performance."
+"A high memory utilization in the redis-cache-cluster instance may be due to memory leaks in the application, exceeding the threshold and causing performance issues in associated services."
+"The frequent restarts of the weblogic-server-2 instance could be attributed to Java Virtual Machine (JVM) crashes, possibly due to incorrect garbage collection settings or inadequate heap size for the application workload."
+"Deterioration in the opensearch-cluster performance might be caused by excessive shard allocations and unoptimized indexing operations, resulting in slow query responses and timeouts."
+"The high disk I/O on solaris-db-server-42 is likely due to a runaway process or inefficient database queries leading to excessive logging and swap usage, impacting overall system responsiveness."
+"CPU starvation in the linux-web-server-01 is a result of too many parallel processes competing for CPU time, possibly caused by an improper load balancing configuration or a DDoS attack."
+"The network latency issues on the rhel-file-server-07 could be caused by a misconfigured network interface or an overloaded network, affecting file transfer speeds and service availability."
+"The service disruption in the percona-db-cluster is likely due to a split-brain scenario caused by a network partition, leading to data inconsistency and cluster unavailability."
+"The apache-kafka-broker-3 is experiencing frequent leader elections and under replicated partitions, potentially due to unstable network connections or broker failures affecting message throughput."
+An increase in error rates and failure of deployment in kubernetes-production-namespace might be due to incompatible container image updates or misconfigured readiness/liveness probes.
+"The excessive swap usage on the linux-app-server-19 could be related to insufficient physical memory allocation or a memory-intensive application, causing significant slowdowns and potential service outages."

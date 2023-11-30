@@ -25,6 +25,23 @@ def synthetic_root_cause_generator(sample_incident: str, sample_root_cause: str,
 
     return samples
 
+def synthetic_incident_generator(sample_incident: str, sample_root_cause: str, user_root_cause: str):
+    gen_llm = ChatOpenAI(model='gpt-4-1106-preview', temperature=0.7)
+    gen_prompt = PromptTemplate(input_variables=['sample_incident', 'sample_root_cause', 'user_root_cause'], 
+                                template="""You are an expert in ITSM domain. I need your help to create high quality 
+                                dataset of incidents to fine tune a model much smaller than you to predict a root cause 
+                                when an incident is given. Each incident is basically a problem along with a set of events 
+                                which could have caused this problem. Here is a sample incident- {sample_incident} and its 
+                                root cause- {sample_root_cause}. Your job is to convert the below given root cause into a 
+                                incident such as the one given above with appropriate assumptions where ever necessary. There 
+                                should be no other text in the output because i am going to parse your output directly to a dataframe. 
+                                Here is the root cause you have to convert into an incident in JSON format - {user_root_cause}""")
+    
+    gen_samples = LLMChain(llm=gen_llm, prompt=gen_prompt)
+    samples = gen_samples.predict(sample_incident=sample_incident, sample_root_cause=sample_root_cause, user_root_cause=user_root_cause)
+
+    return samples
+
 if __name__ == "__main__":
     sample_incident = """[
         {
@@ -159,7 +176,20 @@ if __name__ == "__main__":
     import json
     import pandas as pd
     
-    json_str = synthetic_root_cause_generator(sample_incident, sample_root_cause, output_template)
-    parsed_jstr = json_str.replace("```json", "").replace("```", "")
-    df = pd.DataFrame(json.loads(parsed_jstr))
-    df.to_csv('./data/root_causes_gpt_4_turbo.csv', header=False, index=False, mode='a')
+    # root cause gen
+    # json_str = synthetic_root_cause_generator(sample_incident, sample_root_cause, output_template)
+    # parsed_jstr = json_str.replace("```json", "").replace("```", "")
+    # df = pd.DataFrame(json.loads(parsed_jstr))
+    # df.to_csv('./data/root_causes_gpt_4_turbo.csv', header=False, index=False, mode='a')
+
+    # root cause -> incident json gen
+    file_path = './data/root_causes_gpt_4_turbo.csv'
+    df = pd.read_csv(file_path)
+    for idx, row in df.iterrows():
+        print(f"Generating Incident number - {idx}", end='\r')
+        rc = row['root_causes']
+        inc = synthetic_incident_generator(sample_incident, sample_root_cause, rc)
+        df = pd.DataFrame()
+        df['incidents'] = [inc]
+        df.to_csv('./data/incidents_gpt_4_turbo.csv', header=False, index=False, mode='a')
+        # break
