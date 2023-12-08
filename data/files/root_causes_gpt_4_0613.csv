@@ -1,0 +1,11 @@
+root_causes
+"High memory utilization in the redis-cache-node-45 instance of the user-profile-service, likely due to a memory leak in the Redis instance, as indicated by the memory usage consistently exceeding the threshold of 75% for the last 10 minutes."
+"Increased latency in the apache-web-server-12 serving the content-delivery-network application, potentially due to misconfigured KeepAlive settings or a DDoS attack, as suggested by the surge in traffic and decreased throughput."
+"Frequent restarts of the springboot-order-service on the kubernetes-cluster-3, potentially caused by an out-of-memory error as the pod's memory usage approaches the limit set by the cluster resource quota."
+"High CPU usage in the solaris-zone-2 running the oracle-database-19c, possibly due to inefficient query execution or inadequate indexing, as indicated by the slow query log and CPU spikes correlating with scheduled batch jobs."
+"Filesystem read/write latency on the linux-server-89 hosting the opensearch-cluster, likely due to I/O contention or disk failure as evidenced by increased iowait and error rates reported by the SMART diagnostics."
+"Network connectivity issues in the datacenter-switch-7 affecting multiple services, including the weblogic-app-server-14, as indicated by packet loss and increased network latency observed in the network monitoring tools."
+"The elasticsearch-data-node-21's disk watermark high threshold has been exceeded, potentially due to unoptimized index retention policies or a sudden increase in logging volume, leading to reduced indexing and search performance."
+"The mysql-replica-db-33 is experiencing replication lag, likely due to long-running transactions or network latency between the primary and replica databases, as indicated by the increasing replication delay metrics."
+"The percona-xtradb-cluster-node-77 is showing signs of cluster instability, possibly due to network partitioning or misconfigured cluster settings, as suggested by frequent state transfer operations and error logs indicating quorum loss."
+"The tomcat-application-container-52 is reporting frequent HTTP 500 errors, likely due to application code exceptions or database connectivity issues, as indicated by the increase in exception stack traces in the application logs."
