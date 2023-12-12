@@ -8,7 +8,6 @@ from opensearch_dsl import Search, Q, A
 from opensearchpy.client import OpenSearch
 from opensearchpy.connection import create_ssl_context
 from opensearchpy.helpers.errors import ScanError
-from app.app_config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -939,7 +938,7 @@ class QueryHelper:
                 .set_timeout_in_minutes(connection_time_out_in_mins) \
                 .set_sniffer_on(sniffer_flag) \
                 .set_persistent_connections_per_node(connections_per_node) \
-                .set_http_compress_on(http_compress_on_flag).set_use_ssl(str(settings.OPENSEARCH_USE_SSL)) \
+                .set_http_compress_on(http_compress_on_flag).set_use_ssl("False") \
                 .create()
             self.opensearch_client = open_search_client
         return self.opensearch_client

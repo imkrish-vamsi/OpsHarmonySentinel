@@ -9,7 +9,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_id, padding_side='left')
 app = Celery('tasks', broker='redis://localhost:6379/0')
 
 @app.task
-def process_data(data):
+def process_data(incident_id, data):
     question = f"Analyse and provide root cause for the following ITOps incident. Use the forensics to support your answer. You should be technically accurate and up to the point. {data}"
     messages = [
     {"role": "system", "content": "You are a friendly chatbot assistant made by HEAL. You are an expert in ITOps, servers, applications and all other related domains. You answer specifically only to the question asked."},
@@ -24,7 +24,8 @@ def process_data(data):
                                 top_p=0.95,
                                 repetition_penalty=1.1)
     out = tokenizer.decode(gen_output[0], skip_special_tokens=True)
-    insert_into_os(df)
+    tup = (incident_id, data, out)
+    insert_into_os(tup)
     print(out)
 
 if __name__ == '__main__':
