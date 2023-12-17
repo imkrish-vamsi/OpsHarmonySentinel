@@ -75,22 +75,17 @@ def get_realtime_incidents(from_date: str, to_date: str):
 
     return result_df
 
-def get_llm_response(from_date: str, to_date: str):
-    from_date = pd.to_datetime(from_date)
-    to_date = pd.to_datetime(to_date)
+def get_llm_response():
     query_helper = QueryHelper(get_os_connection_params())
     include_columns = ["@timestamp", "incidentId", "events", "rootCause"]
     q = QueryParams()
     result_df = pd.DataFrame(columns=include_columns)
     q.time_column = '@timestamp'
     q.include_cols = include_columns
-    for frm, to in date_batches(from_date, to_date, batch_in_days=1, date_in_epoch=False):
-        # q.index_name = "heal_correlation_att_realtime_2023.w*"
-        q.index_name = os.environ.get("OPENSEARCH_RESULT_INDEX")
-        q.time_range_filter = QueryParams.TimeFilter(frm, to)
-        df = query_helper.search_data(q)
-        if not df.empty:
-            result_df = pd.concat([result_df, df])
+    q.index_name = os.environ.get("OPENSEARCH_RESULT_INDEX")
+    df = query_helper.search_data(q)
+    if not df.empty:
+        result_df = pd.concat([result_df, df])
     if not result_df.empty:
         result_df['@timestamp'] = pd.to_datetime(result_df['@timestamp'])
 
